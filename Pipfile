@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-httpauth = "*"
 pytest = "*"
+faker = "*"
 
 [dev-packages]
 pylint = "*"
