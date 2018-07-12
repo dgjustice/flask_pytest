@@ -7,12 +7,15 @@ import pytest
 from unittest.mock import Mock, patch, MagicMock
 from src.app import create_app
 from src.message_bp import show_messages
+from tests.load_db_data import init_db
 
 @pytest.fixture
 def app_inst():
     """Pytest fixture that returns an instance of our application."""
     app = create_app()
     app.debug = True
+    # Load test DB objects
+    init_db(app)
     return app
 
 def test_get_messages_401(app_inst):
