@@ -7,15 +7,19 @@ import src.models as m
 
 BP = Blueprint("app", __name__)
 
-def get_messages():
+def query_message_by_user():
     """Retrieve messages from the DB by user."""
     try:
-        messages = m.Message.query.filter(
+        message_objs = m.Message.query.filter(
             m.Message.username == g.user.username
         ).all()
     except sqlalchemy.exc.SQLAlchemyError:
         abort(500, "Could not retrieve records from the DB.")
-    # print(messages)
+    return message_objs
+
+def retrieve_message_text():
+    """Retrieve messages from database and return JSON string."""
+    messages = query_message_by_user()
     resp_text = json.dumps([
         {
             "user": message.username,
@@ -29,5 +33,5 @@ def get_messages():
 @AUTH.login_required
 def show_messages():
     """Show messages by user."""
-    resp_text = get_messages()
+    resp_text = retrieve_message_text()
     return Response(resp_text, mimetype="application/json")
