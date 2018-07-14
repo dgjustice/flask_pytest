@@ -8,7 +8,6 @@ import json
 from unittest.mock import Mock, patch, MagicMock
 from flask import g
 from src.app import create_app
-from src.message_bp import get_messages
 import src.models as m
 from tests.load_db_data import init_db
 
